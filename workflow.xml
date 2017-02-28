@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow-app xmlns="uri:oozie:workflow:0.2" name="map-reduce-wf">
+
+   <start to="pigscript"/>
+   <action name = "pigscript">
+    <pig>
+
+      <job-tracker>${jobTracker}</job-tracker>
+      <name-node>${nameNode}</name-node>
+	  <script>/user/Jig11890/oozie/pig/runPig.pig</script>
+	  
+     </pig>
+
+       <ok to = "end"/>
+       <error to = "fail" />
+     </action>
+
+     <kill name = "fail">
+       <message> ${wf:errorCode}</message>
+     </kill>
+
+    <end name="end" />
+</workflow-app>
